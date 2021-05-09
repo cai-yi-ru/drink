@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+
+    <title>今天喝蝦咪?</title>
+    <style>
+      .bg-cover{
+            background-size: cover;
+            background-position: center center; /*圖片置中顯示*/
+        }
+    </style>
+  </head>
+
+
+  <body >
+    <div id="app">
+
+       <!-- 導覽列 -->
+    <nav class="navbar navbar-light bg-light">          
+      <a class="navbar-brand " href="shoppingCart.html">
+          <i class="fas fa-wine-glass-alt text-info"></i>
+          今天喝蝦咪
+      </a> 
+      <!-- 購物車內的數量(Button 內包含icon ,數量badge)-->
+      <div class="text-right my-2">
+          <button class="btn btn-primary" @click="openModal()">建立新的店家</button>
+      </div>
+  </nav>
+
+  <!-- 大區塊排版技巧 -->
+  <header>
+      <div class="jumbotron jumbotron-fluid jumbotron-bg d-flex align-items-end bg-cover" style="background-image:url(https://images.unsplash.com/photo-1484834762280-66a18a5a8f0b?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=);">
+          <div class="container">
+              <div class="bg-lighter p-3" >
+                  <h1 class="display-4 text-white text-center">今天喝蝦咪?</h1>
+                  
+              </div>              
+          </div>
+      </div>
+  </header>
+
+  <!-- 卡片式排版與Grid System整齊排版 -->
+  <section>
+      <div class="container">
+          <div class="row">
+              
+              <!-- 使用ListGroup切換產品類別 -->
+                            
+
+
+              <div class="col">
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="pane-1">
+                        <div class="text-right my-2">
+                          <button class="btn btn-secondary" @click="getOneShop()">隨機挑一家</button>
+                      </div>
+                          <div class="row">
+                              <div class="col mb-4">
+                                  <div class="card border-0 box-shadow text-center h-100" v-if="filtershop">
+                                    <div class="card-title">
+                                      <h3 class="card-title"><strong>{{filtershop.title}}</strong></h3>                                        
+                                    </div>
+                                      <img :src="filtershop.imageUrl" id="images" class="card-img-top" >
+                                      
+                                      
+                                  </div>
+                              </div>
+                              
+                          </div>
+                      </div>
+                      
+                  </div>
+                  
+              </div>
+              
+          </div>
+      </div>
+  </section>
+  
+    
+    
+    
+
+
+
+  <div class="modal fade" id="drinkModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content border-0">
+                  <div class="modal-header bg-dark text-white">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                      <span >新增店家</span>
+                      
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="row">
+                      <div class="col-sm-4">
+                          <div class="form-group">
+                          <label for="image">輸入圖片網址</label>
+                          <input type="text" class="form-control" id="image"
+                              v-model="temShop.imageUrl"
+                              placeholder="請輸入圖片連結">
+                          </div>
+                          <!-- <div class="form-group">
+                          <label for="customFile">或 上傳圖片
+                              <i class="fas fa-spinner fa-spin" v-if=" status.fileUploading"></i>
+                          </label>
+                          <input type="file" id="customFile" class="form-control"
+                              ref="files" @change="uploadFile">
+                          </div> -->
+                          <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
+                          class="img-fluid" :src="temShop.imageUrl" alt="">
+                      </div>
+                      <div class="col-sm-8">
+                          <div class="form-group">
+                          <label for="title">飲料店名稱</label>
+                          <input type="text" class="form-control" id="title"
+                              v-model="temShop.title"
+                              placeholder="請輸入店名">
+                          </div>
+
+                          
+                      </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" @click="addShop">確認</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    
+
+    
+
+
+
+
+
+    <script src="drink.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
