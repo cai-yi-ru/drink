@@ -64,15 +64,16 @@
                   <div class="tab-content">
                       <div class="tab-pane active" id="pane-1">
                         <div class="text-right my-2">
+                        <input type="text" placeholder="搜尋" v-model="searchtext">
                           <button class="btn btn-secondary" @click="getOneShop()">隨機挑一家</button>
                       </div>
                           <div class="row">
-                              <div class="col mb-4">
-                                  <div class="card border-0 box-shadow text-center h-100" v-if="filtershop">
+                              <div class="col mb-4" v-for="item in fiteritem" ::key="item.id">
+                                  <div class="card border-0 box-shadow text-center h-100" >
                                     <div class="card-title">
-                                      <h3 class="card-title"><strong>{{filtershop.title}}</strong></h3>                                        
+                                      <h3 class="card-title"><strong>{{item.title}}</strong></h3>                                        
                                     </div>
-                                      <img :src="filtershop.imageUrl" id="images" class="card-img-top" >
+                                      <img :src="item.imageUrl" id="images" class="card-img-top" >
                                       
                                       
                                   </div>
