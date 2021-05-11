@@ -15,7 +15,7 @@
                 
                 const api = 'https://vast-wave-45006.herokuapp.com/api/getShops';
                 axios.get(api).then(response => {
-                    // console.log(response.data.list);
+                    console.log(response.data.list);
                     vm.shops = response.data.list;
                 
                     vm.Shoplength = vm.shops.length;
