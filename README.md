@@ -13,7 +13,7 @@ DEMO：[今天喝蝦咪](https://cai-yi-ru.github.io/drink/)
 
 - vue-axios
 - Bootstrap 4
-- 自己的 RESTful API
+- 自己設計的 RESTful API
 
 ### 功能畫面
 
